@@ -1,0 +1,6 @@
+flexget_config_file: "/home/flexget/.flexget"
+flexget_torrent_files_download_dir: "/home/transmission/torrents"
+flexget_show_rss_userid: 80004
+flexget_nyaatorrents_animes:
+    - "[HorribleSubs]+Naruto*720p"
+    - "Dragon+ball+super+KamiFS+10bit"

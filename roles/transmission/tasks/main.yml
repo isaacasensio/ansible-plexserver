@@ -1,0 +1,45 @@
+---
+# file: roles/transmission/tasks/main.yml
+
+- name: Enable EPEL repo
+  yum: name=http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm state=present
+
+- name: Update with EPEL repo
+  yum: name=* state=latest
+
+- name: Create transmission group
+  group: name=transmission state=present
+
+- name: Create transmission user
+  user: name=transmission group=transmission state=present
+
+- name: Install transmission
+  yum: name={{ item }} state=present
+  with_items:
+     - libnatpmp
+     - transmission-cli
+     - transmission-common
+     - transmission-daemon
+
+- name: Create watch folder for torrents files
+  file: path={{watch_dir_torrent_files}}
+        state=directory
+        owner=transmission
+        group=transmission
+        mode=0762
+
+
+- name: Ensure transmission-daemon is stopped before configure it
+  service: name=transmission-daemon state=stopped
+
+- name: Configure transmission
+  template: src=settings.json.j2
+            dest=/home/transmission/.config/transmission-daemon/settings.json
+            owner=transmission
+            group=transmission
+            mode=0600
+
+- name: Ensure transmission-daemon is up
+  service: name=transmission-daemon state=started
+
+# Configure notifications

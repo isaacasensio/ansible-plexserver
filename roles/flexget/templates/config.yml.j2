@@ -1,0 +1,15 @@
+templates:
+  global:
+    accept_all: yes
+    download: {{flexget_torrent_files_download_dir}}
+
+tasks:
+  tvshows:
+    include:
+      - tvshows.yml
+  movies:
+    include:
+      - movies.yml
+  anime:
+    include:
+      - anime.yml

@@ -1,0 +1,27 @@
+---
+# file: roles/plex-server/tasks/main.yml
+
+#curl https://plex.tv/api/downloads/1.json?_=1472387264232 | jq .computer.Linux.releases[]'| select(.label | contains("CentOS 64-bit")) | .url' | sed 's/"//g'
+#https://github.com/plexinc-plugins/BBC-iPlayer.bundle.git
+
+
+- name: Check if Plex Media Server is already installed
+  shell: "`which yum` list installed plexmediaserver.x86_64 | grep -c plexmediaserver.x86_64"
+  register: plex_already_installed
+
+- name: Install Plex Media Server
+  yum: name={{plex_media_server_url}} state=present
+  when: plex_already_installed == 0
+
+- name: Ensure plexmediaserver is up
+  service: name=plexmediaserver state=started
+
+- name: Install Plex plugins
+  unarchive:
+    src: "{{item}}"
+    dest: "{{plugins_folder}}"
+    remote_src: no
+    group: plex
+    owner: plex
+  with_fileglob:
+    - files/*

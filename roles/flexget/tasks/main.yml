@@ -1,0 +1,37 @@
+---
+# file: roles/flexget/tasks/main.yml
+
+- name: Create flexget group
+  group: name=flexget state=present
+
+- name: Create flexget user
+  user: name=flexget group=flexget state=present
+
+- name: Install pip
+  yum: name=python-pip state=present
+
+- name: Upgrade pip
+  shell: pip install --upgrade pip
+
+- name: Install setuptools
+  shell: pip install setuptools --upgrade
+
+- name: Install flexget
+  shell: pip install flexget
+
+- name: Configure flexget in crontab
+  cron: name="Flexget" special_time=hourly job="/usr/bin/flexget --cron execute" user=flexget
+
+- name: Create flexget config folder
+  file: path={{flexget_config_file}} state=directory mode=0744 owner=flexget group=flexget
+
+- name: Configure flexget
+  template: src={{item | basename}}
+            dest={{flexget_config_file}}/{{item | basename | regex_replace('^(?P<filename>.*).(?P<jinja2>j2)$', '\\g<filename>')}}
+            owner=flexget
+            group=flexget
+            mode=0644
+  with_fileglob:
+    - templates/*
+
+# Configure notifications

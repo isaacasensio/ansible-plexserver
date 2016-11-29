@@ -1,0 +1,4 @@
+---
+# file: site.yml
+- include: plex-server.yml
+- include: torrent-server.yml

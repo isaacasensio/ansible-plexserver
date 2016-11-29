@@ -1,0 +1,12 @@
+# file: vagrant
+
+[plex-server]
+default ansible_ssh_host=192.168.111.222
+
+[torrent-server]
+default ansible_ssh_host=192.168.111.222
+
+# All servers in vagrant
+[all-in-one:children]
+plex-server
+torrent-server

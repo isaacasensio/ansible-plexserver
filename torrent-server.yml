@@ -1,0 +1,9 @@
+---
+# file: torrent-server.yml
+
+- hosts: torrent-server
+  become: yes
+  roles:
+    - common
+    - transmission
+    - flexget

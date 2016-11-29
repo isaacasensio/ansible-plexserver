@@ -1,0 +1,7 @@
+---
+# file: plex-server.yml
+- hosts: all-in-one
+  become: yes
+  roles:
+    - common
+    - plex-server

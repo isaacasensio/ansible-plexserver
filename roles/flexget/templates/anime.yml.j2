@@ -1,0 +1,4 @@
+inputs:
+{% for anime_filter in flexget_nyaatorrents_animes %}
+  - rss: http://www.nyaatorrents.org/?page=rss&term={{ anime_filter }}
+{% endfor %}

@@ -1,4 +1,9 @@
 ---
 # file: site.yml
-- include: plex-server.yml
-- include: torrent-server.yml
+- hosts: all
+  become: yes
+  roles:
+    - common
+    - transmission
+    - flexget
+    - plex

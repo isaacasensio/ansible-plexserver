@@ -3,10 +3,5 @@
 [plex-server]
 default ansible_ssh_host=192.168.1.72 ansible_ssh_user=isaac
 
-[torrent-server]
-default ansible_ssh_host=192.168.1.72 ansible_ssh_user=isaac
-
-# All servers in my machine
-[all-in-one:children]
+[all:children]
 plex-server
-torrent-server

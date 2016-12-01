@@ -33,5 +33,3 @@
             mode=0644
   with_fileglob:
     - templates/*
-
-# Configure notifications

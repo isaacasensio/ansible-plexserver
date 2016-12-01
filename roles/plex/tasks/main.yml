@@ -5,13 +5,17 @@
 #https://github.com/plexinc-plugins/BBC-iPlayer.bundle.git
 
 
-- name: Check if Plex Media Server is already installed
-  shell: "`which yum` list installed plexmediaserver.x86_64 | grep -c plexmediaserver.x86_64"
-  register: plex_already_installed
+- name: Get latest rpm URL from official website
+  shell: "curl -s {{plex_media_download_api}} | jq .computer.Linux.releases[]'| select(.label | contains(\"CentOS 64-bit\")) | .url' | sed 's/\"//g'"
+  register: plex_media_server_url
+
+- name: Download RPM from URL
+  get_url:
+    url: "{{plex_media_server_url.stdout}}"
+    dest: {{tmp_download_folder}}/plex-server.rpm
 
 - name: Install Plex Media Server
-  yum: name={{plex_media_server_url}} state=present
-  when: plex_already_installed == 0
+  yum: name={{tmp_download_folder}}/plex-server.rpm state=present
 
 - name: Ensure plexmediaserver is up
   service: name=plexmediaserver state=started

@@ -1,9 +1,9 @@
 ---
 # file: roles/plex-server/vars/main.yml
 
-plex_media_server_url: "https://downloads.plex.tv/plex-media-server/1.0.3.2461-35f0caa/plexmediaserver-1.0.3.2461-35f0caa.x86_64.rpm"
-tmp_folder: "/tmp/plex"
-plugins_folder: "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-ins/"
+plex_media_download_api: "https://plex.tv/api/downloads/1.json?_=1472387264232"
+tmp_download_folder: "/tmp/"
+plugins_folder: "/var/lib/plexmediaserver/Library/Application\ Support/Plex\ Media\ Server/Plug-ins/"
 official_plex_plugins:
   - "https://github.com/plexinc-plugins/ABC.bundle.git"
   - "https://github.com/plexinc-plugins/Vimeo.bundle.git"

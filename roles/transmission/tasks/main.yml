@@ -1,12 +1,6 @@
 ---
 # file: roles/transmission/tasks/main.yml
 
-- name: Enable EPEL repo
-  yum: name=http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm state=present
-
-- name: Update with EPEL repo
-  yum: name=* state=latest
-
 - name: Create transmission group
   group: name=transmission state=present
 
@@ -28,6 +22,8 @@
         group=transmission
         mode=0762
 
+- name: Ensure transmission-daemon is up
+  service: name=transmission-daemon state=started
 
 - name: Ensure transmission-daemon is stopped before configure it
   service: name=transmission-daemon state=stopped

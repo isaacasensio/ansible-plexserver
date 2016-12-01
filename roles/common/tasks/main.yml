@@ -1,6 +1,12 @@
 ---
 # file: roles/common/tasks/main.yml
 
+- name: Enable EPEL repo
+  yum: name=http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm state=present
+
+- name: Enable elrepo
+  yum: name=http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm state=present
+
 - name: upgrade all packages
   yum: name=* state=latest
 

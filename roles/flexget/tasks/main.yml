@@ -32,4 +32,4 @@
             group=flexget
             mode=0644
   with_fileglob:
-    - templates/*
+    - ../templates/*

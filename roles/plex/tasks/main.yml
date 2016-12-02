@@ -1,10 +1,6 @@
 ---
 # file: roles/plex-server/tasks/main.yml
 
-#curl https://plex.tv/api/downloads/1.json?_=1472387264232 | jq .computer.Linux.releases[]'| select(.label | contains("CentOS 64-bit")) | .url' | sed 's/"//g'
-#https://github.com/plexinc-plugins/BBC-iPlayer.bundle.git
-
-
 - name: Get latest rpm URL from official website
   shell: "curl -s {{plex_media_download_api}} | jq .computer.Linux.releases[]'| select(.label | contains(\"CentOS 64-bit\")) | .url' | sed 's/\"//g'"
   register: plex_media_server_url
@@ -12,15 +8,15 @@
 - name: Download RPM from URL
   get_url:
     url: "{{plex_media_server_url.stdout}}"
-    dest: {{tmp_download_folder}}/plex-server.rpm
+    dest: "{{tmp_download_folder}}/plex-server.rpm"
 
 - name: Install Plex Media Server
-  yum: name={{tmp_download_folder}}/plex-server.rpm state=present
+  yum: name="{{tmp_download_folder}}/plex-server.rpm" state=present
 
 - name: Ensure plexmediaserver is up
   service: name=plexmediaserver state=started
 
-- name: Install Plex plugins
+- name: Install Plex plugins from files folder
   unarchive:
     src: "{{item}}"
     dest: "{{plugins_folder}}"
@@ -29,3 +25,7 @@
     owner: plex
   with_fileglob:
     - files/*
+
+- name: Install Plex plugins from git
+  git: repo="{{item}}" dest="{{plugins_folder}}/{{ item | regex_replace('^.*/(?P<name>.*)\.git$', '\\g<name>')}}"
+  with_items: "{{git_plex_plugins | default([])}}"

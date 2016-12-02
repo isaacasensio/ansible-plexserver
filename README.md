@@ -38,18 +38,18 @@ Plex should be accessible at http://your_ip:32400/web/index.html
 
 You basically have two options:
 
-  - Install plugins using the official [Plex plug-ins git repo](https://github.com/plexinc-plugins).
+  - Install plugins from a git repo such as [Plex plug-ins git repo](https://github.com/plexinc-plugins).
   - Copying a zip bundle inside the "*files*" folder in plex-server role.
 
 #### Git repo
-Add plugins needed to *official_plex_plugins* property in plex-server role.
+Add plugins needed to *git_plex_plugins* property in plex-server role.
 
-    official_plex_plugins:
+    git_plex_plugins:
       - "https://github.com/plexinc-plugins/ABC.bundle.git"
       - "https://github.com/plexinc-plugins/Vimeo.bundle.git"
 
 #### Zip bundle
-Copy your zip bundle inside the "*files*" folder in the plex-server role, and ansible will install it.
+Copy your zip bundle inside the "*files*" folder in the plex-server role, and ansible will install it for you.
 
 ## Transmission
 

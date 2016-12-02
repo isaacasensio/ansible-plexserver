@@ -1,6 +1,6 @@
 # ansible-plexserver
 
-Ansible playbook to setup a multimedia server in Centos with the following features:
+Ansible playbook to setup a multimedia server in Centos that includes:
 
   - Plex Media Server [https://www.plex.tv/](https://www.plex.tv/).
   - BitTorrent client [https://transmissionbt.com/](https://transmissionbt.com/)

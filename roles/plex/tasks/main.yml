@@ -24,7 +24,7 @@
     group: plex
     owner: plex
   with_fileglob:
-    - files/*
+    - files/*.zip
 
 - name: Install Plex plugins from git
   git: repo="{{item}}" dest="{{plugins_folder}}/{{ item | regex_replace('^.*/(?P<name>.*)\.git$', '\\g<name>')}}"

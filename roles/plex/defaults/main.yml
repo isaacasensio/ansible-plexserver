@@ -1,0 +1,4 @@
+---
+# file: roles/plex-server/vars/main.yml
+tmp_download_folder: "/tmp/"
+git_plex_plugins: []

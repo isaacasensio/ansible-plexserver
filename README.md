@@ -27,12 +27,11 @@ So you finally decide to install this playbook, great!. Before running your Ansi
  - modify your *inventory/all* file to include your ip address.
  - run Ansible playbook:
 
-
-      ansible-playbook -i inventory/all site.yml -K
+    ansible-playbook -i inventory/all site.yml -K
 
 ## Plex Media Server
 
-Plex should be accessible at http://your_ip:32400/web/index.html
+Plex should be accessible at http://your_ip/plex
 
 ### Plugins/Channels/Bundles
 
@@ -53,7 +52,7 @@ Copy your zip bundle inside the "*files*" folder in the plex-server role, and an
 
 ## Transmission
 
-Transmission BitTorrent web client should be accessible at http://your_ip:9091/transmission
+Transmission BitTorrent web client should be accessible at http://your_ip/transmission
 
 - Username: transmission
 - Password: transmission

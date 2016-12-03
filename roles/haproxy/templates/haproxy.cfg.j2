@@ -1,0 +1,34 @@
+global
+        maxconn 1024
+        user haproxy
+        group haproxy
+        daemon
+        log 127.0.0.1 local0 debug
+
+defaults
+        log     global
+        mode    http
+        option  httplog
+        option  dontlognull
+        retries 3
+        option redispatch
+        option http-server-close
+        option forwardfor
+        maxconn 2000
+        timeout connect 5s
+        timeout client  15min
+        timeout server  15min
+
+frontend public
+        bind *:80
+        use_backend plex if { path_beg /plex/ }
+        use_backend transmission if { path_beg /transmission/ }
+        default_backend plex
+
+backend plex
+        reqrep ^([^\ :]*)\ /plex      \1\ /web
+        server mcenter 127.0.0.1:32400
+
+backend transmission
+        reqrep ^([^\ :]*)\ /transmission$    \1\ /\2/web
+        server mcenter  127.0.0.1:9091

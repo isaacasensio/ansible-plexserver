@@ -2,6 +2,4 @@
 # file: roles/plex-server/vars/main.yml
 
 plex_media_download_api: "https://plex.tv/api/downloads/1.json?_=1472387264232"
-tmp_download_folder: "/tmp/"
 plugins_folder: "/var/lib/plexmediaserver/Library/Application\ Support/Plex\ Media\ Server/Plug-ins/"
-git_plex_plugins: []
